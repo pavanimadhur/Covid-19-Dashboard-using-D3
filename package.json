@@ -1,0 +1,25 @@
+{
+  "name": "express-heroku-demo",
+  "version": "1.0.0",
+  "description": "Edit me later",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node": "^17.0.1",
+    "node-localstorage": "^2.2.1",
+    "server.js": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jimmorey/lorem.git"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
