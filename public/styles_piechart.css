@@ -1,0 +1,130 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400);
+
+body {
+  font: 16px/1.4em "Montserrat", Arial, sans-serif;
+}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.chart-text {
+  fill: #000;
+  -moz-transform: translateY(0.25em);
+  -ms-transform: translateY(0.25em);
+  -webkit-transform: translateY(0.25em);
+  transform: translateY(0.25em);
+}
+
+.chart-number {
+  font-size: 0.5em;
+  line-height: 1;
+  text-anchor: middle;
+  -moz-transform: translateY(-0.25em);
+  -ms-transform: translateY(-0.25em);
+  -webkit-transform: translateY(-0.25em);
+  transform: translateY(-0.25em);
+}
+
+.figure-key-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.figure-key-list li {
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+#block_container {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+}
+.figure-key {
+  flex: 1;
+  padding-left: 15px;
+  padding-right: 15px;
+  align-self: center;
+ 
+}
+
+.shape-flag {
+    
+    display: inline-block;
+    vertical-align: middle;
+    width: 60px;
+    height: 40px;
+    
+  
+}
+
+.USA{
+    background-image: url('flag_svgs/United_States.svg.png');
+}
+.TheUnitedKingdom {
+    background-image: url('flag_svgs/United_Kingdom.svg.png');
+}
+.Turkey {
+    background-image: url('flag_svgs/Turkey.svg.png');
+}
+.Spain {
+    background-image: url('flag_svgs/Spain.svg.png');
+}
+.Russia
+{
+    background-image: url('flag_svgs/Russia.svg.png');
+}
+.Mexico{
+    background-image: url('flag_svgs/Mexico.svg.png');
+}
+.Italy
+{
+    background-image: url('flag_svgs/Italy.svg.png');
+}
+.Iran
+{
+    background-image: url('flag_svgs/Iran.svg.png');
+}
+.Indonesia
+{
+    background-image: url('flag_svgs/Indonesia.svg.png');
+}
+.Germany
+{
+    background-image: url('flag_svgs/Germany.svg.png');
+}
+.France
+{
+    background-image: url('flag_svgs/France.svg.png');
+
+}
+.Colombia
+{
+    background-image: url('flag_svgs/Colombia.svg.png');
+}
+.Argentina
+{
+    background-image: url('flag_svgs/Argentina.svg.png');
+}
+.India {
+    background-image: url('flag_svgs/India.svg.png');
+}
+
+.Brazil
+{
+    background-image: url('flag_svgs/Brazil.svg.png');
+}
+
+
+.chart-label {
+ 
+  font-size: 0.2em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  -moz-transform: translateY(0.7em);
+  -ms-transform: translateY(0.7em);
+  -webkit-transform: translateY(0.7em);
+  transform: translateY(0.7em);
+}

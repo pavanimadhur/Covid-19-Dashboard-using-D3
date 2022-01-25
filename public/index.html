@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">	
+</head>
+<body>
+	<!--main Heading of the page which has the unicode emoji before the title-->
+	<h1 class = "neonText" align = center > <span class="emoji">&#128567;</span> Covid-19 World Data</h1>
+	<div class="wrapper">	
+		<div  id  = "left_text" align = "center" class="two">
+			Total Confirmed Cases
+		</div>
+			<!-- updatable data from the json file -->	
+		<div id = "list_cases" style = "float: left" class="three">
+			<button onclick="update_bar()">Toggle</button>
+			<span> Number of Hovers for each country</span>
+			<svg id="graph" width="400" height="3000"></svg>
+		</div>
+		    <!-- d3 world map which shows the total number of cases and number of deaths when we hover on a country -->
+		<div id="map_div" class="column" class="four">
+			<span>Note: Hover over the map to see country specific data.</span>
+			<svg  id='map1' width = "400" height = "300" align = "center"></svg>
+		</div>
+		   <!--A donut piechart which shows the total deaths in last 24 hours from the selected three countries-->
+		   <!-- ref : https://heyoka.medium.com/scratch-made-svg-donut-pie-charts-in-html5-2c587e935d72 -->
+		<div id="hor_bar" class="five">
+			<h1> Deaths reported in the last 24 hours</h1>
+			<span>Note: select any three countries using below dropdown menus.</span>
+			<br>
+			<p> 
+				<label for="con_1">Country 1</label> 
+				<select name="con_1" id="c1">
+				  <option value="USA">USA</option>
+				  <option value="India">India</option>
+				  <option value="Brazil">Brazil</option>
+				  <option value="The United Kingdom">The United Kingdom</option>
+				  <option value="Russia">Russia</option>
+				  <option value="Turkey">Turkey</option>
+				  <option value="France">France</option>
+				  <option value="Iran">Iran</option>
+				  <option value="Argentina">Argentina</option>
+				  <option value="Germany">Germany</option>
+				  <option value="Spain">Spain</option>
+				  <option value="Colombia">Colombia</option>
+				  <option value="Italy">Italy</option>
+				  <option value="Indonesia">Indonesia</option>
+				  <option value="Mexico">Mexico</option>
+				  </select>
+			  
+			  
+				<label for="con_2">Country 2</label> 
+				<select name="con_2" id="c2">
+				  <option value="USA">USA</option>
+				  <option value="India">India</option>
+				  <option value="Brazil">Brazil</option>
+				  <option value="The United Kingdom">The United Kingdom</option>
+				  <option value="Russia">Russia</option>
+				  <option value="Turkey">Turkey</option>
+				  <option value="France">France</option>
+				  <option value="Iran">Iran</option>
+				  <option value="Argentina">Argentina</option>
+				  <option value="Germany">Germany</option>
+				  <option value="Spain">Spain</option>
+				  <option value="Colombia">Colombia</option>
+				  <option value="Italy">Italy</option>
+				  <option value="Indonesia">Indonesia</option>
+				  <option value="Mexico">Mexico</option>
+			  
+				</select>
+			  
+				<label for="con_3">Country 3</label> 
+				<select name="con_3" id="c3">
+				  <option value="USA">USA</option>
+				  <option value="India">India</option>
+				  <option value="Brazil">Brazil</option>
+				  <option value="The United Kingdom">The United Kingdom</option>
+				  <option value="Russia">Russia</option>
+				  <option value="Turkey">Turkey</option>
+				  <option value="France">France</option>
+				  <option value="Iran">Iran</option>
+				  <option value="Argentina">Argentina</option>
+				  <option value="Germany">Germany</option>
+				  <option value="Spain">Spain</option>
+				  <option value="Colombia">Colombia</option>
+				  <option value="Italy">Italy</option>
+				  <option value="Indonesia">Indonesia</option>
+				  <option value="Mexico">Mexico</option>
+				</select>
+			  <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+			  <button   onclick="calculate()">Display</button>
+			  </p>
+			  <figure>
+				<div id="block_container">
+			   <div >
+			  <svg class="donut" width="600" height="100%" viewBox="0 0 42 42">
+				<defs>
+					<pattern id="image" patternUnits="userSpaceOnUse" height="100" width="100">
+					  <image x="0" y="0" height="50" width="50" xlink:href="https://upload.wikimedia.org/wikipedia/commons/a/ac/Panama_on_the_globe_%28Americas_centered%29.svg"></image>
+					</pattern>
+				  </defs>
+				<circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="url(#image)"></circle>
+				<circle id="donut-segment2" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#2fdf72" stroke-width="3" stroke-dasharray="0 100" stroke-dashoffset="25"></circle>
+				<circle id="donut-segment3" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#fca70a" stroke-width="3" stroke-dasharray="0 100" stroke-dashoffset="25">	</circle>
+				<circle id="donut-segment1" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ac2edf" stroke-width="3" stroke-dasharray="0 100" stroke-dashoffset="25"></circle>
+				
+			   <g class="chart-text">
+					  <text x="50%" y="50%" class="chart-number" id="totalValue">
+						0
+					  </text>
+					  <text x="50%" y="50%" class="chart-label">
+						Total
+					  </text>
+					</g>
+			  </svg>
+			  </div>
+			  <br>
+			  <div align = "left">
+			  <figcaption class="figure-key">
+			  <ul class="figure-key-list" aria-hidden="true" role="presentation">
+				<li>
+				  <span id = "color1" ></span><span style='color: #ac2edf' id = "title1"></span>
+				</li>
+				<li>
+				  <span id = "color2"></span> <span style='color: #2fdf72' id = "title2"></span>
+				</li>
+				<li>
+				  <span id ="color3"></span><span style='color: #fca70a' id = "title3"></span>
+				</li>
+			  </ul>
+			  </figcaption>
+			  </div>
+			  </div>
+			  </figure>
+		</div>
+
+	    <!-- D3 bargraph which shows the country wise cases in last 24 hours-->
+		<div id="hor_bar2" class="six">
+			<h1>Country vise Cases in Last 24 hours</h1>
+			<svg  id='bar_horiz2' width = "10000" height = "400" align = "center"></svg>
+		</div>
+	</div>
+	<br>
+   
+	<!-- created a flow chart for vaccine recommendations using SVG rect, path, circle and text elements-->
+    <h1 align = "center" style = "color: red">  Covid 19 Vaccine Recommendations with Additional and Booster Doses</h1>
+    <svg width="100%" height = "600" style="background-color:rgb(17, 17, 17)"> 
+		<rect x= "5" y = "5" width = "45%" height ="65%" style = "fill: rgb(65, 64, 63)" ></rect>
+		<text x="120" y="20" font-family="Verdana" font-weight= "bold" style = "fill: rgb(248, 243, 243)" >mRNA Two Dose: Pfizer and Moderna</text>
+		<rect x="90" y="40"  rx="10" ry="10" width="170" height="80" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+		<text x="130" y="60" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Dose 1</text>
+		<text x="110" y="80" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Pfizer (30 mcg)</text>
+		<text x="110" y="100" font-family="Verdana"  font-weight = "bold" font-size= "small" fill="black">Moderna (100 mcg)</text>
+		<path d=" M 260,80 l 120,0 " style="stroke:rgb(180, 143, 240);stroke-width:2" />
+		<rect x="330" y="40" rx="10" ry="10" width="170" height="110" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+		<text x="370" y="60" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Dose 2</text>
+		<text x="350" y="80" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Pfizer (30 mcg)</text>
+		<text x="380" y="100" font-family="Verdana"  font-size= "small" fill="black">at 21 days</text>
+		<text x="350" y="120" font-family="Verdana"  font-weight = "bold" font-size= "small" fill="black">Moderna (100 mcg)</text>
+		<text x="380" y="140" font-family="Verdana"  font-size= "small" fill="black">at 28 days</text>
+		<path d=" M 400,150 l 0,20 " style="stroke:rgb(180, 143, 240);stroke-width:2" />
+		<text x="340" y="180" font-family="Verdana"  font-size= "small" fill="black">immunocompromised</text>
+		<text x="380" y="200" font-family="Verdana"  font-size= "small" fill="black"> >=28days </text>
+		<path d=" M 400,210 l 0,20 " style="stroke:rgb(180, 143, 240);stroke-width:2" />
+		<rect x="330" y="230" rx="10" ry="10" width="170" height="110" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+		<text x="370" y="250" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Additional</text>
+		<text x="350" y="270" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Pfizer (30 mcg)</text>
+		<text x="380" y="290" font-family="Verdana"  font-size= "small" fill="black">>= 12yrs</text>
+		<text x="350" y="310" font-family="Verdana"  font-weight = "bold" font-size= "small" fill="black">Moderna (100 mcg)</text>
+		<text x="380" y="330" font-family="Verdana"  font-size= "small" fill="black">>= 18yrs</text>
+		<rect x= "5" y = "390" width = "45%" height ="10" style = "fill: rgb(22, 22, 22)" ></rect>
+	    <rect x= "5" y = "400" width = "45%" height ="190" style = "fill: rgb(65, 64, 63)"" ></rect>
+		<text x="170" y="420" font-family="Verdana" font-weight= "bold" style = "fill: rgb(250, 249, 249)" >Single Dose: J&J Vaccine </text>
+        <rect x="200" y="440" rx="10" ry="10" width="170" height="110" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+	    <text x="230" y="480" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Single Dose</text>
+		<text x="230" y="500" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">J&J (0.5 mL)</text>
+		<path d=" M 510,80 l 150,0 l 0,450 l -150,0"   style=" fill: none; stroke:rgb(180, 143, 240);stroke-width:2" />
+		<path d=" M 510,300 l 150,0 " style="stroke:rgb(180, 143, 240);stroke-width:2" />
+		<circle cx="570" cy="80" r="40" stroke="black" stroke-width="3" fill="rgb(180, 143, 240)" />
+		<text x="535" y="85" font-family="Verdana"  font-size= "small" fill="black">>= 6mons</text>
+		<circle cx="570" cy="300" r="40" stroke="black" stroke-width="3" fill="rgb(180, 143, 240)" />
+		<text x="535" y="305" font-family="Verdana"  font-size= "small" fill="black">>= 6mons</text>	
+		<circle cx="570" cy="530" r="40" stroke="black" stroke-width="3" fill="rgb(180, 143, 240)" />
+		<text x="535" y="535" font-family="Verdana"  font-size= "small" fill="black">>= 2mons</text>
+		<rect x= "750" y = "5" width = "40%" height ="97%" style = "fill: rgb(65, 64, 63)" ></rect>
+		<text x="870" y="20" font-family="Verdana" font-weight= "bold" style = "fill: rgb(243, 236, 236)" >Booster Doses </text>
+        <rect x="870" y="40" rx="10" ry="10" width="170" height="110" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+	    <text x="900" y="100" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Moderna* 0.25 mL</text>
+		<text x="900" y="120" font-family="Verdana"  font-size= "small" fill="black">>= 18yrs</text>
+
+		<rect x="870" y="230" rx="10" ry="10" width="170" height="110" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+	    <text x="900" y="270" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">Pfizer* 0.3 mL</text>
+		<text x="900" y="290" font-family="Verdana"  font-size= "small" fill="black">>= 18yrs</text>
+
+		<rect x="870" y="440" rx="10" ry="10" width="170" height="110" style="fill:rgb(240, 174, 194);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+	    <text x="900" y="480" font-family="Verdana" font-weight = "bold" font-size= "small" fill="black">J&J* 0.25 mL</text>
+		<text x="900" y="500" font-family="Verdana"  font-size= "small" fill="black">>= 18yrs</text>
+        <path d=" M 850,80 l -70,0 l 0,450 l 70,0"   style=" fill: none; stroke:rgb(180, 143, 240);stroke-width:2" />
+		<path d=" M 660, 260 l 170,0 " style="stroke:rgb(180, 143, 240);stroke-width:2" />
+	</svg>
+	  <!-- block of code which consists of Hover/focus/active codes and also the svg rectangle and text elements-->
+	<svg width="100%" height = "300" >
+		<rect width="100%" height="100%" style="fill:rgb(17, 17, 17);stroke-width:3;stroke:rgb(0,0,0)"></rect>
+		<text x="520" y="50" font-family="Verdana" font-weight= "bold" fill="red">Help Guidelines</text>
+		<foreignObject x="520" y="70" width="100%" height="100%">
+			<div class = "footer-dark" >				
+				<ul>
+					<li><a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public">Public Advice</a></li>
+					<li><a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/technical-guidance">Technical Guidance</a></li>
+					<li><a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/covid-19-vaccines">Covid Vaccines</a></li>
+				</ul>
+			</div>
+			<p class= "footer-dark">Pavani Madhur © 2018</p>
+        </foreignObject>
+	 </svg>	
+
+    <link rel='stylesheet' href='styles.css'>
+	<link rel='stylesheet' href='styles_piechart.css'>
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>  
+</body>
+</html>
